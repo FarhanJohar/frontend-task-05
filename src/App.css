@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+.app {
+  text-align: center;
+  max-width: 600px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.header {
+  background-color: #4caf50;
+  padding: 20px;
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.input-section {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.input-section input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.input-section button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-section button:hover {
+  background-color: #45a049;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.task-list li.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.task-list button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.task-list button:hover {
+  background-color: darkred;
+}
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
