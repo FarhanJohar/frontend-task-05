@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
+import FetchDataPage from "./components/FetchDataPage"; // Import FetchDataPage
+import FetchDataNavigation from "./components/FetchDataNavigation"; // Import FetchDataNavigation
 import "./App.css";
 
 function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
+    try {
+      const storedTasks = localStorage.getItem("tasks");
+      if (storedTasks) {
+        setTasks(JSON.parse(storedTasks));
+      }
+    } catch (error) {
+      console.error("Failed to load tasks from localStorage", error);
     }
   }, []);
 
@@ -18,6 +25,8 @@ function App() {
   }, [tasks]);
 
   const handleAddTask = (task) => {
+    if (task.trim() === "") return;
+    if (tasks.some((t) => t.text === task)) return;
     setTasks([...tasks, { text: task, completed: false }]);
   };
 
@@ -34,19 +43,33 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <header className="header">
-        <h1>React To-Do List</h1>
-      </header>
-      <main>
-        <AddTask onAddTask={handleAddTask} />
-        <TaskList
-          tasks={tasks}
-          onRemoveTask={handleRemoveTask}
-          onToggleTask={toggleTaskCompletion}
-        />
-      </main>
-    </div>
+    <Router>
+      <div className="app">
+        {/* This will keep the navigation always visible */}
+        <header className="header">
+          <h1>React App with Routing</h1>
+          <FetchDataNavigation /> {/* Render Navigation globally */}
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<FetchDataPage />} />
+            <Route
+              path="/to-do"
+              element={
+                <>
+                  <AddTask onAddTask={handleAddTask} />
+                  <TaskList
+                    tasks={tasks}
+                    onRemoveTask={handleRemoveTask}
+                    onToggleTask={toggleTaskCompletion}
+                  />
+                </>
+              }
+            />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
